@@ -27,12 +27,7 @@ public class Interface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
-        buttonGroup4 = new javax.swing.ButtonGroup();
-        buttonGroup5 = new javax.swing.ButtonGroup();
-        buttonGroup6 = new javax.swing.ButtonGroup();
+        buttonGroupAlgorithm = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         buttonRandomData = new javax.swing.JButton();
         buttonAddData = new javax.swing.JButton();
@@ -44,9 +39,9 @@ public class Interface extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         labelThroughput = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        buttonFinishSimulation = new javax.swing.JToggleButton();
-        buttonNewSimulation = new javax.swing.JToggleButton();
-        buttonNextStep = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         labelTurnTime = new javax.swing.JLabel();
@@ -55,11 +50,11 @@ public class Interface extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jobsTable = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        radioButtonFCFS = new javax.swing.JRadioButton();
+        radioButtonSJF = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jSpinner1 = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
@@ -162,41 +157,29 @@ public class Interface extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonFinishSimulation.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        buttonFinishSimulation.setText("Finish Simulation >|");
-        buttonFinishSimulation.setMaximumSize(new java.awt.Dimension(75, 25));
-        buttonFinishSimulation.setMinimumSize(new java.awt.Dimension(75, 25));
-        buttonFinishSimulation.setOpaque(true);
-        buttonFinishSimulation.setPreferredSize(new java.awt.Dimension(75, 25));
-        buttonFinishSimulation.setSize(new java.awt.Dimension(75, 25));
+        jButton1.setText("Next Step >>");
 
-        buttonNewSimulation.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        buttonNewSimulation.setText("New Simulation");
-        buttonNewSimulation.setMaximumSize(new java.awt.Dimension(75, 25));
-        buttonNewSimulation.setMinimumSize(new java.awt.Dimension(75, 25));
-        buttonNewSimulation.setPreferredSize(new java.awt.Dimension(75, 25));
+        jButton2.setText("Finish Simulation >|");
 
-        buttonNextStep.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        buttonNextStep.setText("Next Step >>");
-        buttonNextStep.setMaximumSize(new java.awt.Dimension(75, 25));
-        buttonNextStep.setMinimumSize(new java.awt.Dimension(75, 25));
+        jButton3.setText("New Simulation");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(buttonNextStep, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonFinishSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonNewSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(buttonNextStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(buttonFinishSimulation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(buttonNewSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -249,7 +232,7 @@ public class Interface extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel9.setText("Jobs ");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jobsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", null, null, null, null, null, null, null},
                 {"2", null, null, null, null, null, null, null},
@@ -281,7 +264,8 @@ public class Interface extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jobsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jobsTable);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -305,15 +289,19 @@ public class Interface extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        buttonGroupAlgorithm.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jRadioButton1.setText("Round Robin");
 
-        jRadioButton2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jRadioButton2.setText("First Come First Served");
+        buttonGroupAlgorithm.add(radioButtonFCFS);
+        radioButtonFCFS.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        radioButtonFCFS.setText("First Come First Served");
 
-        jRadioButton3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jRadioButton3.setText("Shortest Job First");
+        buttonGroupAlgorithm.add(radioButtonSJF);
+        radioButtonSJF.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        radioButtonSJF.setText("Shortest Job First");
 
+        buttonGroupAlgorithm.add(jRadioButton4);
         jRadioButton4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jRadioButton4.setText("Shortest Remaining Time First");
 
@@ -328,9 +316,9 @@ public class Interface extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton2)
+                .addComponent(radioButtonFCFS)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton3)
+                .addComponent(radioButtonSJF)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton4)
                 .addGap(18, 18, 18)
@@ -345,23 +333,23 @@ public class Interface extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jRadioButton1)
+                    .addComponent(radioButtonFCFS)
+                    .addComponent(radioButtonSJF)
+                    .addComponent(jRadioButton4)
                     .addComponent(jLabel1)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButton4)))
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jRadioButton1, jRadioButton4, radioButtonFCFS, radioButtonSJF});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -370,7 +358,9 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, 11))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,16 +428,11 @@ public class Interface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddData;
-    private javax.swing.JToggleButton buttonFinishSimulation;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.ButtonGroup buttonGroup5;
-    private javax.swing.ButtonGroup buttonGroup6;
-    private javax.swing.JToggleButton buttonNewSimulation;
-    private javax.swing.JToggleButton buttonNextStep;
+    private javax.swing.ButtonGroup buttonGroupAlgorithm;
     private javax.swing.JButton buttonRandomData;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -462,16 +447,16 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jobsTable;
     private javax.swing.JLabel labelAvgTurnTime;
     private javax.swing.JLabel labelAvgWaitingTime;
     private javax.swing.JLabel labelThroughput;
     private javax.swing.JLabel labelTurnTime;
     private javax.swing.JLabel labelTurnTime1;
+    private javax.swing.JRadioButton radioButtonFCFS;
+    private javax.swing.JRadioButton radioButtonSJF;
     // End of variables declaration//GEN-END:variables
 }

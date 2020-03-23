@@ -5,11 +5,15 @@
  */
 package Main;
 
+import java.util.ArrayList;
+import Components.Job;
 /**
  *
  * @author Sandun Rajitha
  */
 public class AddData extends javax.swing.JFrame {
+    
+    private ArrayList<Job> list = new ArrayList<Job>();
 
     /**
      * Creates new form AddData
@@ -30,7 +34,6 @@ public class AddData extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        arrive2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -42,6 +45,7 @@ public class AddData extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         arrive1 = new javax.swing.JTextField();
+        arrive2 = new javax.swing.JTextField();
         arrive3 = new javax.swing.JTextField();
         arrive4 = new javax.swing.JTextField();
         arrive5 = new javax.swing.JTextField();
@@ -51,6 +55,7 @@ public class AddData extends javax.swing.JFrame {
         arrive9 = new javax.swing.JTextField();
         arrive10 = new javax.swing.JTextField();
         burst1 = new javax.swing.JTextField();
+        burst2 = new javax.swing.JTextField();
         burst3 = new javax.swing.JTextField();
         burst4 = new javax.swing.JTextField();
         burst5 = new javax.swing.JTextField();
@@ -59,7 +64,6 @@ public class AddData extends javax.swing.JFrame {
         burst8 = new javax.swing.JTextField();
         burst9 = new javax.swing.JTextField();
         burst10 = new javax.swing.JTextField();
-        burst2 = new javax.swing.JTextField();
         buttonAddData = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
@@ -72,8 +76,6 @@ public class AddData extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Add Data");
-
-        arrive2.setText("0");
 
         jLabel4.setText("Process 02");
 
@@ -95,7 +97,11 @@ public class AddData extends javax.swing.JFrame {
 
         jLabel13.setText("Process 10");
 
+        arrive1.setEditable(false);
         arrive1.setText("0");
+
+        arrive2.setText("0");
+        arrive2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         arrive3.setText("0");
 
@@ -115,6 +121,8 @@ public class AddData extends javax.swing.JFrame {
 
         burst1.setText("0");
 
+        burst2.setText("0");
+
         burst3.setText("0");
 
         burst4.setText("0");
@@ -130,8 +138,6 @@ public class AddData extends javax.swing.JFrame {
         burst9.setText("0");
 
         burst10.setText("0");
-
-        burst2.setText("0");
 
         buttonAddData.setText("Add Data");
 

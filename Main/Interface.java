@@ -388,7 +388,9 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRandomDataActionPerformed
 
     private void buttonAddDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddDataActionPerformed
-        // TODO add your handling code here:
+        AddData addDataWindow = new AddData();
+        addDataWindow.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_buttonAddDataActionPerformed
 
     /**

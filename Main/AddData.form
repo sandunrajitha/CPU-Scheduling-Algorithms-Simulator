@@ -24,74 +24,83 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jLabel3" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="arrive9" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="arrive8" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="arrive7" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="arrive6" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="arrive5" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="arrive4" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="arrive3" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="arrive2" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="arrive1" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="arrive10" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="buttonAddData" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonRandom" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="arrive9" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="arrive8" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="arrive7" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="arrive6" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="arrive5" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="arrive4" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="arrive3" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="arrive2" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="arrive1" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="arrive10" min="-2" pref="75" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="burst9" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="burst8" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="burst7" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="burst6" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="burst5" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="burst4" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="burst3" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="burst2" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="burst1" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="burst10" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="buttonAddData" min="-2" pref="116" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="buttonCancel" min="-2" pref="116" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="buttonCancel" min="-2" pref="100" max="-2" attributes="0"/>
+                  <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="burst9" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="burst8" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="burst7" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="burst6" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="burst5" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="burst4" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="burst3" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="burst2" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="burst1" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="burst10" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -172,11 +181,12 @@
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="buttonCancel" pref="46" max="32767" attributes="0"/>
-                  <Component id="buttonAddData" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="buttonAddData" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="buttonRandom" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="buttonCancel" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -287,33 +297,21 @@
     </Component>
     <Component class="javax.swing.JTextField" name="arrive7">
       <Properties>
-        <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="arrive8">
       <Properties>
-        <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="arrive9">
       <Properties>
-        <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="arrive10">
       <Properties>
-        <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
@@ -349,33 +347,21 @@
     </Component>
     <Component class="javax.swing.JTextField" name="burst7">
       <Properties>
-        <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="burst8">
       <Properties>
-        <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="burst9">
       <Properties>
-        <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="burst10">
       <Properties>
-        <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
@@ -383,11 +369,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Data"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddDataActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonRandom">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Random"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRandomActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

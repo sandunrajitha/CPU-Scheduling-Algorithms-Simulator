@@ -16,8 +16,14 @@ public class Job {
     public int burstTime;
     
     public int startTime;
+    public int waitTime;
     public int finishedTime;
     public boolean finished;
+    public int turnAroundTime;
+
+    public void setWaitTime(int waitTime) {
+        this.waitTime = waitTime;
+    }
     
     public int remainingTime;
 
@@ -49,6 +55,11 @@ public class Job {
         this.remainingTime = remainingTime;
     }
 
+    public void setTurnAroundTime(int turnAroundTime) {
+        this.turnAroundTime = turnAroundTime;
+    }
+    
+  
     public int getJobNo() {
         return jobNo;
     }
@@ -64,6 +75,10 @@ public class Job {
     public int getStartTime() {
         return startTime;
     }
+    
+    public int getWaitTime() {
+        return waitTime;
+    }
 
     public int getFinishedTime() {
         return finishedTime;
@@ -75,6 +90,10 @@ public class Job {
 
     public int getRemainingTime() {
         return remainingTime;
+    }
+
+    public int getTurnAroundTime() {
+        return turnAroundTime;
     }
     
     
@@ -88,5 +107,7 @@ public class Job {
         this.finishedTime = 0;
         this.finished = false;
         this.remainingTime = burstTime;
+        this.waitTime = 0;
+        this.turnAroundTime = 0;
     }
 }

@@ -6,6 +6,8 @@
 package Main;
 
 import Components.Job;
+import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -20,9 +22,7 @@ public class Interface extends javax.swing.JFrame {
     public Interface() {
         initComponents();
         setLocationRelativeTo(null);
-        buttonFinishSimulation.setEnabled(false);
-        buttonNewSimulation.setEnabled(false);
-        buttonNextStep.setEnabled(false);
+        disableButtons();
         radioButtonGroupDisable();
     }
     
@@ -30,9 +30,11 @@ public class Interface extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setWorkQueue(jobList);
-        buttonFinishSimulation.setEnabled(true);
-        buttonNewSimulation.setEnabled(true);
-        buttonNextStep.setEnabled(true);
+        enableButtons();
+        radioButtonGroupEnable();
+        buttonGroupAlgorithm.setSelected(radioButtonFCFS.getModel(), true);
+        ganttBackground.setLayout(new FlowLayout(FlowLayout.LEFT));
+        ganttBackground.setSize(960, 100);
     }
     
     /**
@@ -73,6 +75,7 @@ public class Interface extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jobsTable = new javax.swing.JTable();
+        ganttBackground = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CPU Scheduling Algorithms Simulator");
@@ -92,6 +95,11 @@ public class Interface extends javax.swing.JFrame {
 
         buttonNextStep.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         buttonNextStep.setText("Next Step >>");
+        buttonNextStep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNextStepActionPerformed(evt);
+            }
+        });
 
         buttonNewSimulation.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         buttonNewSimulation.setText("New Simulation");
@@ -127,7 +135,7 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonNewSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonFinishSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -235,6 +243,16 @@ public class Interface extends javax.swing.JFrame {
         buttonGroupAlgorithm.add(radioButtonRR);
         radioButtonRR.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         radioButtonRR.setText("Round Robin");
+        radioButtonRR.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioButtonRRItemStateChanged(evt);
+            }
+        });
+        radioButtonRR.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                radioButtonRRStateChanged(evt);
+            }
+        });
 
         buttonGroupAlgorithm.add(radioButtonFCFS);
         radioButtonFCFS.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
@@ -332,6 +350,21 @@ public class Interface extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        ganttBackground.setBackground(new java.awt.Color(0, 255, 255));
+        ganttBackground.setFocusable(false);
+        ganttBackground.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout ganttBackgroundLayout = new javax.swing.GroupLayout(ganttBackground);
+        ganttBackground.setLayout(ganttBackgroundLayout);
+        ganttBackgroundLayout.setHorizontalGroup(
+            ganttBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ganttBackgroundLayout.setVerticalGroup(
+            ganttBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -339,6 +372,7 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ganttBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -360,7 +394,9 @@ public class Interface extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(172, 172, 172))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ganttBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
 
         pack();
@@ -376,6 +412,26 @@ public class Interface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonNewSimulationActionPerformed
 
+    private void buttonNextStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextStepActionPerformed
+        
+    }//GEN-LAST:event_buttonNextStepActionPerformed
+
+    private void radioButtonRRStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioButtonRRStateChanged
+        
+    }//GEN-LAST:event_radioButtonRRStateChanged
+
+    private void radioButtonRRItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioButtonRRItemStateChanged
+       
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+           spinnerQuantum.setEnabled(true);
+        }else if(evt.getStateChange() == ItemEvent.DESELECTED){
+            spinnerQuantum.setEnabled(false);
+       }else{
+            spinnerQuantum.setEnabled(false);
+       }
+    }//GEN-LAST:event_radioButtonRRItemStateChanged
+
+    
     private void setWorkQueue(ArrayList<Job> jobList){
         setTableData(jobList);        
     }
@@ -439,6 +495,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupAlgorithm;
     private javax.swing.JButton buttonNewSimulation;
     private javax.swing.JButton buttonNextStep;
+    private javax.swing.JPanel ganttBackground;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -466,9 +523,10 @@ public class Interface extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void radioButtonGroupEnable() {
-        spinnerQuantum.setEnabled(true);
+        spinnerQuantum.setEnabled(false);
         radioButtonFCFS.setEnabled(true);
         radioButtonSRTF.setEnabled(true);
+        radioButtonSJF.setEnabled(true);
         radioButtonRR.setEnabled(true);
     }
     
@@ -476,6 +534,19 @@ public class Interface extends javax.swing.JFrame {
         spinnerQuantum.setEnabled(false);
         radioButtonFCFS.setEnabled(false);
         radioButtonSRTF.setEnabled(false);
+        radioButtonSJF.setEnabled(false);
         radioButtonRR.setEnabled(false);
+    }
+    
+    private void enableButtons(){
+        buttonFinishSimulation.setEnabled(true);
+        buttonNewSimulation.setEnabled(true);
+        buttonNextStep.setEnabled(true);
+    }
+    
+    private void disableButtons(){
+        buttonFinishSimulation.setEnabled(false);
+        buttonNewSimulation.setEnabled(false);
+        buttonNextStep.setEnabled(false);
     }
 }

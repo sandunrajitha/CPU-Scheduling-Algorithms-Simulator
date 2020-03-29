@@ -5,6 +5,8 @@
  */
 package Components;
 
+import java.util.Comparator;
+
 /**
  *
  * @author Sandun Rajitha
@@ -17,16 +19,30 @@ public class Job {
     
     public int startTime;
     public int waitTime;
+    public int remainingTime;
     public int finishedTime;
     public boolean finished;
     public int turnAroundTime;
+    
+    
+    public Job(int jobNo, int arrivalTime, int burstTime){
+        this.jobNo = jobNo;
+        this.arrivalTime = arrivalTime;
+        this.burstTime = burstTime;
+        
+        this.startTime = 0;
+        this.finishedTime = 0;
+        this.finished = false;
+        this.remainingTime = burstTime;
+        this.waitTime = 0;
+        this.turnAroundTime = 0;
+    }
 
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
     }
     
-    public int remainingTime;
-
+    
     public void setJobNo(int jobNo) {
         this.jobNo = jobNo;
     }
@@ -95,19 +111,42 @@ public class Job {
     public int getTurnAroundTime() {
         return turnAroundTime;
     }
+     
     
+    public static Comparator<Job> arrivalTimeComparator = new Comparator<Job>() {
+
+	public int compare(Job j1, Job j2) {
+	   int arrivalTime1 = j1.getArrivalTime();
+	   int arrivalTime2 = j2.getArrivalTime();
+
+	   //ascending order
+	   return arrivalTime1 - arrivalTime2;
+
+	   //descending order
+	   //return job2-job1;
+    }};
     
+    public static Comparator<Job> burstTimeComparator = new Comparator<Job>() {
+
+	public int compare(Job j1, Job j2) {
+	   int burstTime1 = j1.getBurstTime();
+	   int burstTime2 = j2.getBurstTime();
+           
+           return burstTime1 - burstTime2;
+    }};
     
-    public Job(int jobNo, int arrivalTime, int burstTime){
-        this.jobNo = jobNo;
-        this.arrivalTime = arrivalTime;
-        this.burstTime = burstTime;
-        
-        this.startTime = 0;
-        this.finishedTime = 0;
-        this.finished = false;
-        this.remainingTime = burstTime;
-        this.waitTime = 0;
-        this.turnAroundTime = 0;
+    public static Comparator<Job> remainingTimeComparator = new Comparator<Job>() {
+
+	public int compare(Job j1, Job j2) {
+	   int remainingTime1 = j1.getRemainingTime();
+	   int remainingTime2 = j2.getRemainingTime();
+           
+           return remainingTime1 - remainingTime2;
+    }};
+    
+    @Override
+    public String toString() {
+        return "[ jobNo=" + jobNo + ", arrivalTime=" + arrivalTime + ", burstTime=" + burstTime + ", startTime=" + startTime + ", "
+                + "waitTime=" + waitTime + ", finishedTime=" + finishedTime + ", finished=" + finished + ", turnAroundTime=" + turnAroundTime + "]";
     }
 }

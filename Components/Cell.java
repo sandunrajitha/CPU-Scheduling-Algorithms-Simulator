@@ -6,6 +6,8 @@
 package Components;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.JLabel;
 import static javax.swing.SwingConstants.CENTER;
 
@@ -15,18 +17,20 @@ import static javax.swing.SwingConstants.CENTER;
  */
 public class Cell extends JLabel{
     
-    public Cell(int x, int y, int width, int height, int jobNo){
-        setLocation(x, y);
-        setSize(width, height);
-        setCellColour(jobNo);
+    public Cell(int jobNo){
+        //setLocation(0, y);
+        setPreferredSize(new Dimension(11, 100));
+        setFont(new Font("Serif", Font.BOLD, 10));
+        setCellInfo(jobNo);
         setOpaque(true);
     }
     
-    public void setCellColour(int jobNo){
-        setForeground(Color.WHITE);   // view job number in white on the label
+    public void setCellInfo(int jobNo){
+        setForeground(Color.BLACK);   // view job number in white on the label
         setHorizontalAlignment(CENTER);  // view job number in the center of the label
         switch(jobNo)
-        {
+        {   
+            case 0: setBackground(Color.GRAY); setText("null"); break;
             case 1: setBackground(Color.decode("#F44336")); setText("1"); break;
             case 2: setBackground(Color.decode("#512DA8")); setText("2"); break;
             case 3: setBackground(Color.decode("#3F51B5")); setText("3"); break;
@@ -38,7 +42,7 @@ public class Cell extends JLabel{
             case 9: setBackground(Color.decode("#CDDC39")); setText("9"); break;
             case 10: setBackground(Color.decode("#E91E63")); setText("10"); break;
             
-            case 11: setBackground(Color.WHITE);  break; // empty job 
+            case 11: setBackground(Color.WHITE);  setText(" ");break; // empty job 
             case 12: setBackground(Color.BLACK); break;// 10 jobs mark
             
         }

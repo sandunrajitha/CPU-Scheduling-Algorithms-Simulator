@@ -5,16 +5,27 @@
  */
 package Main;
 
+import Components.Cell;
 import Components.Job;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sandun Rajitha
  */
 public class Interface extends javax.swing.JFrame {
+
+    String selectedAlgorithm = "FCFS";
+    int quantum = 2;
+    int currentTime = 1;
+    boolean algorithmSet = false;
 
     /**
      * Creates new form Interface
@@ -24,19 +35,27 @@ public class Interface extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         disableButtons();
         radioButtonGroupDisable();
+        initGanttChart();
     }
-    
+
     public Interface(ArrayList<Job> jobList) {
         initComponents();
         setLocationRelativeTo(null);
-        setWorkQueue(jobList);
         enableButtons();
         radioButtonGroupEnable();
-        buttonGroupAlgorithm.setSelected(radioButtonFCFS.getModel(), true);
-        ganttBackground.setLayout(new FlowLayout(FlowLayout.LEFT));
-        ganttBackground.setSize(960, 100);
+        setTableData(jobList);
+        initGanttChart();
+        setButtonListener();
+        CPU.setJobList(jobList);
     }
-    
+
+    public void initGanttChart() {
+        buttonGroupAlgorithm.setSelected(radioButtonFCFS.getModel(), true);
+        ganttBackground.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 2));
+        ganttBackground.setPreferredSize(new Dimension(960, 420));
+        ganttBackground.setMaximumSize(new Dimension(960, 420));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,9 +80,9 @@ public class Interface extends javax.swing.JFrame {
         labelThroughput = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        labelTurnTime = new javax.swing.JLabel();
+        labelCurrentJob = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        labelTurnTime1 = new javax.swing.JLabel();
+        labelCurrentTime = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         radioButtonRR = new javax.swing.JRadioButton();
         radioButtonFCFS = new javax.swing.JRadioButton();
@@ -76,9 +95,12 @@ public class Interface extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jobsTable = new javax.swing.JTable();
         ganttBackground = new javax.swing.JPanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CPU Scheduling Algorithms Simulator");
+        setMinimumSize(new java.awt.Dimension(972, 919));
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -135,10 +157,11 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonNewSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonFinishSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(8, 8, 8))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setPreferredSize(new java.awt.Dimension(331, 118));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel2.setText("Average Waiting Time :");
@@ -190,22 +213,23 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(labelThroughput))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setPreferredSize(new java.awt.Dimension(195, 118));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel6.setText("Current Job :");
 
-        labelTurnTime.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
-        labelTurnTime.setText("0");
+        labelCurrentJob.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
+        labelCurrentJob.setText("0");
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel8.setText("Current Time :");
 
-        labelTurnTime1.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
-        labelTurnTime1.setText("0");
+        labelCurrentTime.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
+        labelCurrentTime.setText("0");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -217,11 +241,11 @@ public class Interface extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelTurnTime))
+                        .addComponent(labelCurrentJob))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(29, 29, 29)
-                        .addComponent(labelTurnTime1)))
+                        .addComponent(labelCurrentTime)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -230,12 +254,12 @@ public class Interface extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(labelTurnTime))
+                    .addComponent(labelCurrentJob))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(labelTurnTime1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelCurrentTime))
+                .addContainerGap())
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -311,6 +335,8 @@ public class Interface extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel9.setText("Jobs ");
 
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(960, 404));
+
         jobsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -338,7 +364,7 @@ public class Interface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,23 +372,28 @@ public class Interface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        ganttBackground.setBackground(new java.awt.Color(0, 255, 255));
+        ganttBackground.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ganttBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ganttBackground.setFocusable(false);
-        ganttBackground.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        ganttBackground.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        ganttBackground.setMaximumSize(new java.awt.Dimension(960, 420));
+        ganttBackground.setName(""); // NOI18N
+        ganttBackground.setPreferredSize(new java.awt.Dimension(960, 420));
+        ganttBackground.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout ganttBackgroundLayout = new javax.swing.GroupLayout(ganttBackground);
         ganttBackground.setLayout(ganttBackgroundLayout);
         ganttBackgroundLayout.setHorizontalGroup(
             ganttBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 956, Short.MAX_VALUE)
         );
         ganttBackgroundLayout.setVerticalGroup(
             ganttBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 416, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -372,31 +403,40 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ganttBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ganttBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ganttBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addComponent(ganttBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -412,48 +452,45 @@ public class Interface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonNewSimulationActionPerformed
 
+
     private void buttonNextStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextStepActionPerformed
-        
+        radioButtonGroupDisable();
+        if (!algorithmSet) {
+            CPU.setAlgorithm(selectedAlgorithm);
+            algorithmSet = true;
+        }
+
+        Job job = CPU.nextStep(currentTime);
+//        Random rnd = new Random();
+//        jobNo = ((rnd.nextInt(10)+1));
+
+        addCell(job.getJobNo());
+
+        labelCurrentJob.setText("job " + job.getJobNo());
+        labelCurrentTime.setText(currentTime + "");
+        currentTime++;
+
     }//GEN-LAST:event_buttonNextStepActionPerformed
 
     private void radioButtonRRStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioButtonRRStateChanged
-        
+
     }//GEN-LAST:event_radioButtonRRStateChanged
 
     private void radioButtonRRItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioButtonRRItemStateChanged
-       
-        if(evt.getStateChange() == ItemEvent.SELECTED){
-           spinnerQuantum.setEnabled(true);
-        }else if(evt.getStateChange() == ItemEvent.DESELECTED){
-            spinnerQuantum.setEnabled(false);
-       }else{
-            spinnerQuantum.setEnabled(false);
-       }
+
+        switch (evt.getStateChange()) {
+            case ItemEvent.SELECTED:
+                spinnerQuantum.setEnabled(true);
+                break;
+            case ItemEvent.DESELECTED:
+                spinnerQuantum.setEnabled(false);
+                break;
+            default:
+                spinnerQuantum.setEnabled(false);
+                break;
+        }
     }//GEN-LAST:event_radioButtonRRItemStateChanged
 
-    
-    private void setWorkQueue(ArrayList<Job> jobList){
-        setTableData(jobList);        
-    }
-    
-    private void setTableData(ArrayList<Job> jobList){
-        
-        DefaultTableModel tableModel = (DefaultTableModel) jobsTable.getModel();
-        Object rowData[] = new Object[8];
-        
-        jobList.forEach(job -> {
-            rowData[0] = job.getJobNo();
-            rowData[1] = job.getArrivalTime();
-            rowData[2] = job.getBurstTime();
-            rowData[3] = job.getStartTime();
-            rowData[4] = job.getWaitTime();
-            rowData[5] = job.getRemainingTime();
-            rowData[6] = job.getFinishedTime();
-            rowData[7] = job.getFinishedTime();
-            
-            tableModel.addRow(rowData);
-        });     
-    }
     /**
      * @param args the command line arguments
      */
@@ -495,6 +532,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupAlgorithm;
     private javax.swing.JButton buttonNewSimulation;
     private javax.swing.JButton buttonNextStep;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel ganttBackground;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -512,9 +550,9 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JTable jobsTable;
     private javax.swing.JLabel labelAvgTurnTime;
     private javax.swing.JLabel labelAvgWaitingTime;
+    private javax.swing.JLabel labelCurrentJob;
+    private javax.swing.JLabel labelCurrentTime;
     private javax.swing.JLabel labelThroughput;
-    private javax.swing.JLabel labelTurnTime;
-    private javax.swing.JLabel labelTurnTime1;
     private javax.swing.JRadioButton radioButtonFCFS;
     private javax.swing.JRadioButton radioButtonRR;
     private javax.swing.JRadioButton radioButtonSJF;
@@ -529,7 +567,7 @@ public class Interface extends javax.swing.JFrame {
         radioButtonSJF.setEnabled(true);
         radioButtonRR.setEnabled(true);
     }
-    
+
     private void radioButtonGroupDisable() {
         spinnerQuantum.setEnabled(false);
         radioButtonFCFS.setEnabled(false);
@@ -537,16 +575,82 @@ public class Interface extends javax.swing.JFrame {
         radioButtonSJF.setEnabled(false);
         radioButtonRR.setEnabled(false);
     }
-    
-    private void enableButtons(){
+
+    private void enableButtons() {
         buttonFinishSimulation.setEnabled(true);
         buttonNewSimulation.setEnabled(true);
         buttonNextStep.setEnabled(true);
     }
-    
-    private void disableButtons(){
+
+    private void disableButtons() {
         buttonFinishSimulation.setEnabled(false);
         buttonNewSimulation.setEnabled(false);
         buttonNextStep.setEnabled(false);
     }
+
+    private void addCell(int jobNo) {
+        Cell cell = new Cell(jobNo);
+
+        ganttBackground.add(cell);
+
+        ganttBackground.revalidate();
+        //ganttBackground.repaint();
+    }
+
+    private void setTableData(ArrayList<Job> jobList) {
+
+        DefaultTableModel tableModel = (DefaultTableModel) jobsTable.getModel();
+        Object rowData[] = new Object[8];
+
+        jobList.forEach(job -> {
+            rowData[0] = job.getJobNo();
+            rowData[1] = job.getArrivalTime();
+            rowData[2] = job.getBurstTime();
+            rowData[3] = job.getStartTime();
+            rowData[4] = job.getWaitTime();
+            rowData[5] = job.getRemainingTime();
+            rowData[6] = job.getFinishedTime();
+            rowData[7] = job.getFinishedTime();
+
+            tableModel.addRow(rowData);
+        });
+    }
+    
+    public void updateTableData(Job currentJob){
+        DefaultTableModel tableModel = (DefaultTableModel) jobsTable.getModel();
+    }
+
+    public void setRadioActionCommands() {
+        radioButtonFCFS.setActionCommand("FCFS");
+        radioButtonRR.setActionCommand("RR");
+        radioButtonSJF.setActionCommand("SJF");
+        radioButtonSRTF.setActionCommand("SRTF");
+    }
+
+//    abstract class buttonGroupItemListener implements ItemListener{
+//      public String actionPerformed(ActionEvent ex) {
+//        String select = buttonGroupAlgorithm.getSelection().getActionCommand();
+//        return select;
+//      }
+//    }
+    public void setButtonListener() {
+        setRadioActionCommands();
+        radioButtonFCFS.addItemListener(radioButtonListener);
+        radioButtonRR.addItemListener(radioButtonListener);
+        radioButtonSJF.addItemListener(radioButtonListener);
+        radioButtonSRTF.addItemListener(radioButtonListener);
+    }
+
+    ItemListener radioButtonListener = new ItemListener() {
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                selectedAlgorithm = buttonGroupAlgorithm.getSelection().getActionCommand();
+                //System.out.println(e);
+                CPU.setAlgorithm(selectedAlgorithm);
+                System.out.println(selectedAlgorithm);
+            }
+        }
+
+    };
 }

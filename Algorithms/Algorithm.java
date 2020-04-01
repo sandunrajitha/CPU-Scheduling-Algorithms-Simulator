@@ -17,16 +17,20 @@ import java.util.Collections;
  * @author Sandun Rajitha
  */
 public abstract class Algorithm {
-    ArrayList<Job> jobList;
-    ArrayList<Job> readyQueue;
+    ArrayList<Job> jobList, tempQueue;
+    ArrayList<Job> readyQueue = new ArrayList<Job>();
     Job currentJob;
     int quantum = 2;
     
     
     public Algorithm(ArrayList<Job> jobList){
         this.jobList = sortByArrivalTime(jobList);
-        readyQueue = this.jobList;
+        System.out.println(jobList);
+        this.tempQueue = sortByArrivalTime(jobList);
+        System.out.println(tempQueue);
     }
+    
+    public abstract Job nextStep (int simulationTime);
     
     public ArrayList<Job> sortByArrivalTime(ArrayList<Job> list){
         ArrayList<Job> jobs = list;

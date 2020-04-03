@@ -43,6 +43,10 @@ public class Job {
         this.waitTime = startTime - arrivalTime;
     }
     
+    public void incrementWaitTime(){
+        this.waitTime = this.waitTime + 1;
+    }
+    
     
     public void setJobNo(int jobNo) {
         this.jobNo = jobNo;

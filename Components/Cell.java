@@ -42,7 +42,7 @@ public class Cell extends JLabel{
             case 9: setBackground(Color.decode("#CDDC39")); setText("9"); break;
             case 10: setBackground(Color.decode("#E91E63")); setText("10"); break;
             
-            case 11: setBackground(Color.WHITE);  setText(" ");break; // empty job 
+            case 11: setBackground(Color.WHITE);  setText(" "); break; // empty job 
             case 12: setBackground(Color.BLACK); break;// 10 jobs mark
             
         }

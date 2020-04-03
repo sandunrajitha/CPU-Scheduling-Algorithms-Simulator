@@ -5,6 +5,7 @@
  */
 package Algorithms;
 
+import Components.CurrentProcess;
 import Components.Job;
 import java.util.ArrayList;
 
@@ -13,58 +14,83 @@ import java.util.ArrayList;
  * @author Sandun Rajitha
  */
 public class FCFS extends Algorithm {
-
+    
     boolean startSet = false; //flag to set the start time of the each job
 
     public FCFS(ArrayList<Job> jobList) {
         super(jobList);
     }
-
+    
     @Override
-    public Job nextStep(int currentTime) {
+    public CurrentProcess nextStep(int currentTime) {
         Job currentJob = null;
-
+        
+        /**/
+        
+//        System.out.print(" jobList"+jobList.size());
+//        System.out.print(" tempQueue"+tempQueue.size());
+//        System.out.print(" currentProcess"+currentProcess.getTableData().size());
+//        System.out.print(" readyQueue"+readyQueue.size());
+//        System.out.println(" ");
+        /**/
+        
         if (!tempQueue.isEmpty()) {
             tempQueue.forEach(job -> {
                 if (job.arrivalTime == currentTime) {
-                    readyQueue.add(job);
+                    readyQueue.add(job.getCopy());
                 }
-
+                
             });
             readyQueue.forEach(job -> {
                 tempQueue.remove(job);
             });
         }
 
-        
-
         /**/
-        if (!readyQueue.isEmpty()) {
-            if (readyQueue.get(0).remainingTime > 0) {
-                currentJob = readyQueue.get(0);
-                currentJob.remainingTime--;
-                if (currentJob.remainingTime > 0) {
-                    readyQueue.set(0, currentJob);
-                } else {
-                    readyQueue.remove(currentJob);
-                }
-//            } else if (readyQueue.get(0).remainingTime == 0 && readyQueue.size() > 2) {
-//                currentJob = readyQueue.get(1);
-//                currentJob.remainingTime--;
-//                readyQueue.set(1, currentJob);
-//                readyQueue.remove(0);
-//            
-            } else {
-                currentJob = new Job(0, 0, 0);
-            }
-        } else if (readyQueue.isEmpty() && !tempQueue.isEmpty()) {
+        if(tempQueue.isEmpty() && readyQueue.isEmpty()){
+            currentJob = new Job(0, 0, 0);
+            currentProcess.setCurrentJob(currentJob);
+        }else if(!tempQueue.isEmpty() && readyQueue.isEmpty()){
             currentJob = new Job(11, 0, 0);
-        } else if (readyQueue.isEmpty() && tempQueue.isEmpty()) {
-            currentJob = new Job(0, 0, 0);;
+            currentProcess.setCurrentJob(currentJob);
+        
+        }else if(!readyQueue.isEmpty()){
+            
+            currentJob = readyQueue.get(0);
+            if (!currentJob.isStarted()) {
+                currentJob.setStartTime(currentTime);
+                currentJob.setStarted(true);
+            }
+            currentJob.setRemainingTime(currentJob.remainingTime-1);
+            
+            if(currentJob.remainingTime>0){
+                System.out.println(currentJob.getJobNo());
+                readyQueue.set(0, currentJob);
+                
+            }else if (currentJob.remainingTime == 0) {
+                System.out.println("removed "+currentJob.getJobNo());
+                readyQueue.remove(currentJob);
+                currentJob.setFinishedTime(currentTime+1);
+                currentJob.setWaitTime();
+                currentJob.setTurnAroundTime();
+                currentProcess.tableData.set(currentJob.getJobNo()-1, currentJob);
+            }
+                
+//                if(readyQueue.size()>1){
+//                    for (int i = 1; i < readyQueue.size(); i++) {
+//                        Job job = readyQueue.get(i);
+//                        job.setWaitTime(job.getWaitTime()+1);
+//                        currentProcess.tableData.set(job.getJobNo()-1, job);
+//                    }
+//                }
+                
+            currentProcess.setCurrentJob(currentJob);
+            //currentProcess.tableData.remove(currentJob);
+            currentProcess.tableData.set(currentJob.getJobNo()-1, currentJob);
         }
         /**/
-
-        return currentJob;
+        
+        return currentProcess;
     }
-
+    
 }

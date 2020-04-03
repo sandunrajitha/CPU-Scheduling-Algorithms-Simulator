@@ -101,7 +101,7 @@ public class AddData extends javax.swing.JFrame {
         jLabel13.setText("Process 10");
 
         arrive1.setEditable(false);
-        arrive1.setText("1");
+        arrive1.setText("0");
         arrive1.setFocusable(false);
 
         arrive2.setText("0");
@@ -319,7 +319,8 @@ public class AddData extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAddDataActionPerformed
 
     private void buttonRandomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRandomActionPerformed
-        arrive1.setText(1+"");
+        /* 
+        arrive1.setText(0+"");
         arrive2.setText(randomArrive());
         arrive3.setText(randomArrive());
         arrive4.setText(randomArrive());
@@ -340,6 +341,28 @@ public class AddData extends javax.swing.JFrame {
         burst8.setText(randomBurst());
         burst9.setText(randomBurst());
         burst10.setText(randomBurst());
+        */
+        arrive1.setText("0");
+        arrive2.setText("0");
+        arrive3.setText("1");
+        arrive4.setText("2");
+        arrive5.setText("10");
+        arrive6.setText("11");
+        arrive7.setText("13");
+        arrive8.setText("0");
+        arrive9.setText("0");
+        arrive10.setText("0");
+        
+        burst1.setText("1");
+        burst2.setText("2");
+        burst3.setText("1");
+        burst4.setText("3");
+        burst5.setText("2");
+        burst6.setText("4");
+        burst7.setText("5");
+        burst8.setText("0");
+        burst9.setText("0");
+        burst10.setText("0");
     }//GEN-LAST:event_buttonRandomActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
@@ -400,8 +423,9 @@ public class AddData extends javax.swing.JFrame {
             int arrive = data[i][0];
             int burst = data[i][1];
             
-            list.add(new Job(i+1,arrive, burst));
-            
+            if(burst > 0){
+                list.add(new Job(i+1,arrive, burst));
+            }
         }
     }
     /**

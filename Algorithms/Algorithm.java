@@ -5,6 +5,7 @@
  */
 package Algorithms;
 
+import Components.CurrentProcess;
 import Components.Job;
 import static Components.Job.arrivalTimeComparator;
 import static Components.Job.burstTimeComparator;
@@ -17,20 +18,22 @@ import java.util.Collections;
  * @author Sandun Rajitha
  */
 public abstract class Algorithm {
-    ArrayList<Job> jobList, tempQueue;
+    ArrayList<Job> jobList, tempQueue, currentProcessData;
     ArrayList<Job> readyQueue = new ArrayList<Job>();
     Job currentJob;
     int quantum = 2;
-    
+    CurrentProcess currentProcess = new CurrentProcess();
     
     public Algorithm(ArrayList<Job> jobList){
+        
+        currentProcess.setTableData(arrayListCopy(jobList));
         this.jobList = sortByArrivalTime(jobList);
-        System.out.println(jobList);
-        this.tempQueue = sortByArrivalTime(jobList);
-        System.out.println(tempQueue);
+        this.tempQueue = arrayListCopy(this.jobList);
+        this.currentProcessData = arrayListCopy(this.jobList);
+        
     }
     
-    public abstract Job nextStep (int simulationTime);
+    public abstract CurrentProcess nextStep (int simulationTime);
     
     public ArrayList<Job> sortByArrivalTime(ArrayList<Job> list){
         ArrayList<Job> jobs = list;
@@ -54,5 +57,15 @@ public abstract class Algorithm {
         Collections.sort(jobs, remainingTimeComparator);
         
         return jobs;
+    }
+    
+    public ArrayList<Job> arrayListCopy(ArrayList<Job> list){
+        ArrayList<Job> copy = new ArrayList<>();
+        
+       list.forEach(job ->{
+           copy.add(job.getCopy());
+       });
+        
+        return copy;
     }
 }

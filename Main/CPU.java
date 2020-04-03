@@ -7,6 +7,7 @@ package Main;
 
 import Algorithms.Algorithm;
 import Algorithms.FCFS;
+import Components.CurrentProcess;
 import Components.Job;
 import java.util.ArrayList;
 
@@ -25,10 +26,10 @@ public class CPU {
 //        this.jobList = jobList;
 //    }
     
-    public static Job nextStep(int currentTime){
-        Job job = algorithm.nextStep(currentTime);
+    public static CurrentProcess nextStep(int currentTime){
+        CurrentProcess currentProcess = algorithm.nextStep(currentTime);
 //        System.out.println(job.toString());
-        return job;
+        return currentProcess;
     }
     
     public static void setJobList(ArrayList<Job> jobList){

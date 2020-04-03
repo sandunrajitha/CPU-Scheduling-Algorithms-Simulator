@@ -6,12 +6,14 @@
 package Main;
 
 import Components.Cell;
+import Components.CurrentProcess;
 import Components.Job;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +26,7 @@ public class Interface extends javax.swing.JFrame {
 
     String selectedAlgorithm = "FCFS";
     int quantum = 2;
-    int currentTime = 1;
+    int currentTime = 0;
     boolean algorithmSet = false;
 
     /**
@@ -36,6 +38,7 @@ public class Interface extends javax.swing.JFrame {
         disableButtons();
         radioButtonGroupDisable();
         initGanttChart();
+        boolean algorithmSet = false;
     }
 
     public Interface(ArrayList<Job> jobList) {
@@ -47,6 +50,7 @@ public class Interface extends javax.swing.JFrame {
         initGanttChart();
         setButtonListener();
         CPU.setJobList(jobList);
+        boolean algorithmSet = false;
     }
 
     public void initGanttChart() {
@@ -460,14 +464,15 @@ public class Interface extends javax.swing.JFrame {
             algorithmSet = true;
         }
 
-        Job job = CPU.nextStep(currentTime);
+        CurrentProcess currentProcess = CPU.nextStep(currentTime);
 //        Random rnd = new Random();
 //        jobNo = ((rnd.nextInt(10)+1));
 
-        addCell(job.getJobNo());
-
-        labelCurrentJob.setText("job " + job.getJobNo());
-        labelCurrentTime.setText(currentTime + "");
+        addCell(currentProcess.getCurrentJob().getJobNo());
+        //updateTableData(currentProcess.getCurrentJob());
+        removeTableData();
+        setTableData(currentProcess.getTableData());
+        updateLabels(currentProcess.getCurrentJob());
         currentTime++;
 
     }//GEN-LAST:event_buttonNextStepActionPerformed
@@ -610,15 +615,12 @@ public class Interface extends javax.swing.JFrame {
             rowData[4] = job.getWaitTime();
             rowData[5] = job.getRemainingTime();
             rowData[6] = job.getFinishedTime();
-            rowData[7] = job.getFinishedTime();
-
+            rowData[7] = job.getTurnAroundTime();
+            System.out.println(job.toString());
             tableModel.addRow(rowData);
         });
     }
-    
-    public void updateTableData(Job currentJob){
-        DefaultTableModel tableModel = (DefaultTableModel) jobsTable.getModel();
-    }
+
 
     public void setRadioActionCommands() {
         radioButtonFCFS.setActionCommand("FCFS");
@@ -653,4 +655,56 @@ public class Interface extends javax.swing.JFrame {
         }
 
     };
+
+    private void updateLabels(Job job) {
+
+        if (job.getJobNo() < 11 && job.getJobNo() > 0) {
+            labelCurrentJob.setText("job " + job.getJobNo());
+        } else if (job.getJobNo() == 11) {
+            labelCurrentJob.setText("waiting");
+        } else if (job.getJobNo() == 0) {
+            labelCurrentJob.setText("finished");
+            calculateAverages();
+        }
+        labelCurrentTime.setText(currentTime + "");
+    }
+
+    private void calculateAverages() {
+        DefaultTableModel tableModel = (DefaultTableModel) jobsTable.getModel();
+        
+        DecimalFormat formatter = new DecimalFormat("##.###");
+        
+        double totalWaitTime = 0;
+        double totalTurnaroundTime = 0;
+        double finishTime = 0;
+
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+
+            totalWaitTime = (totalWaitTime + (int) tableModel.getValueAt(i, 4));
+        }
+        System.out.println("totalWaitTime " + totalWaitTime);
+        labelAvgWaitingTime.setText(formatter.format(totalWaitTime / tableModel.getRowCount()));
+
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+
+            totalTurnaroundTime = (totalTurnaroundTime + (int) tableModel.getValueAt(i, 7));
+            System.out.println("totalTurnaroundTime =" + totalTurnaroundTime);
+            labelAvgTurnTime.setText(formatter.format(totalTurnaroundTime / tableModel.getRowCount()));
+        }
+
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            if ((int) tableModel.getValueAt(i, 6) > finishTime) {
+                finishTime = (int) tableModel.getValueAt(i, 6);
+            }
+        }
+        
+        System.out.println("finishTime " + finishTime);
+        System.out.println(tableModel.getRowCount());
+        labelThroughput.setText(formatter.format(finishTime / tableModel.getRowCount()));
+    }
+
+    private void removeTableData() {
+        DefaultTableModel tableModel = (DefaultTableModel) jobsTable.getModel();
+        tableModel.setRowCount(0);
+    }
 }

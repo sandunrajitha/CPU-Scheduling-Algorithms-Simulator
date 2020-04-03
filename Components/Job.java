@@ -22,8 +22,8 @@ public class Job {
     public int remainingTime;
     public int finishedTime;
     public boolean finished;
+    public boolean started;
     public int turnAroundTime;
-    
     
     public Job(int jobNo, int arrivalTime, int burstTime){
         this.jobNo = jobNo;
@@ -33,13 +33,14 @@ public class Job {
         this.startTime = 0;
         this.finishedTime = 0;
         this.finished = false;
+        this.started = false;
         this.remainingTime = burstTime;
         this.waitTime = 0;
         this.turnAroundTime = 0;
     }
 
-    public void setWaitTime(int waitTime) {
-        this.waitTime = waitTime;
+    public void setWaitTime() {
+        this.waitTime = startTime - arrivalTime;
     }
     
     
@@ -71,11 +72,14 @@ public class Job {
         this.remainingTime = remainingTime;
     }
 
-    public void setTurnAroundTime(int turnAroundTime) {
-        this.turnAroundTime = turnAroundTime;
+    public void setTurnAroundTime() {
+        this.turnAroundTime = waitTime + burstTime;
     }
     
-  
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
     public int getJobNo() {
         return jobNo;
     }
@@ -103,6 +107,12 @@ public class Job {
     public boolean isFinished() {
         return finished;
     }
+    
+    
+    public boolean isStarted() {
+        return started;
+    }
+    
 
     public int getRemainingTime() {
         return remainingTime;
@@ -110,6 +120,11 @@ public class Job {
 
     public int getTurnAroundTime() {
         return turnAroundTime;
+    }
+    
+    public Job getCopy(){
+        Job copy = new Job(this.jobNo, this.arrivalTime, this.burstTime);
+        return copy;
     }
      
     
@@ -143,6 +158,33 @@ public class Job {
            
            return remainingTime1 - remainingTime2;
     }};
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + this.jobNo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Job other = (Job) obj;
+        if (this.jobNo != other.jobNo) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     @Override
     public String toString() {

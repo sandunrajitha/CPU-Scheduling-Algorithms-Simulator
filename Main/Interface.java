@@ -51,6 +51,7 @@ public class Interface extends javax.swing.JFrame {
         setButtonListener();
         CPU.setJobList(jobList);
         boolean algorithmSet = false;
+        spinnerQuantum.setValue(quantum);
     }
 
     public void initGanttChart() {
@@ -465,11 +466,8 @@ public class Interface extends javax.swing.JFrame {
         }
 
         CurrentProcess currentProcess = CPU.nextStep(currentTime);
-//        Random rnd = new Random();
-//        jobNo = ((rnd.nextInt(10)+1));
 
         addCell(currentProcess.getCurrentJob().getJobNo());
-        //updateTableData(currentProcess.getCurrentJob());
         removeTableData();
         setTableData(currentProcess.getTableData());
         updateLabels(currentProcess.getCurrentJob());
@@ -597,9 +595,7 @@ public class Interface extends javax.swing.JFrame {
         Cell cell = new Cell(jobNo);
 
         ganttBackground.add(cell);
-
         ganttBackground.revalidate();
-        //ganttBackground.repaint();
     }
 
     private void setTableData(ArrayList<Job> jobList) {
@@ -616,7 +612,7 @@ public class Interface extends javax.swing.JFrame {
             rowData[5] = job.getRemainingTime();
             rowData[6] = job.getFinishedTime();
             rowData[7] = job.getTurnAroundTime();
-            System.out.println(job.toString());
+            
             tableModel.addRow(rowData);
         });
     }
@@ -624,17 +620,12 @@ public class Interface extends javax.swing.JFrame {
 
     public void setRadioActionCommands() {
         radioButtonFCFS.setActionCommand("FCFS");
-        radioButtonRR.setActionCommand("RR");
         radioButtonSJF.setActionCommand("SJF");
         radioButtonSRTF.setActionCommand("SRTF");
+        radioButtonRR.setActionCommand("RR");
     }
 
-//    abstract class buttonGroupItemListener implements ItemListener{
-//      public String actionPerformed(ActionEvent ex) {
-//        String select = buttonGroupAlgorithm.getSelection().getActionCommand();
-//        return select;
-//      }
-//    }
+    
     public void setButtonListener() {
         setRadioActionCommands();
         radioButtonFCFS.addItemListener(radioButtonListener);
@@ -648,7 +639,7 @@ public class Interface extends javax.swing.JFrame {
         public void itemStateChanged(ItemEvent e) {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 selectedAlgorithm = buttonGroupAlgorithm.getSelection().getActionCommand();
-                //System.out.println(e);
+                System.out.println(e);
                 CPU.setAlgorithm(selectedAlgorithm);
                 System.out.println(selectedAlgorithm);
             }

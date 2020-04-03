@@ -33,7 +33,21 @@ public abstract class Algorithm {
         
     }
     
-    public abstract CurrentProcess nextStep (int simulationTime);
+    public abstract CurrentProcess nextStep (int currentTime);
+    
+    public void addArrivedToTempQ(int currentTime){
+        if (!tempQueue.isEmpty()) {
+            tempQueue.forEach(job -> {
+                if (job.arrivalTime == currentTime) {
+                    readyQueue.add(job.getCopy());
+                }
+                
+            });
+            readyQueue.forEach(job -> {
+                tempQueue.remove(job);
+            });
+        }
+    }
     
     public ArrayList<Job> sortByArrivalTime(ArrayList<Job> list){
         ArrayList<Job> jobs = list;

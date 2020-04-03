@@ -7,6 +7,9 @@ package Main;
 
 import Algorithms.Algorithm;
 import Algorithms.FCFS;
+import Algorithms.RR;
+import Algorithms.SJF;
+import Algorithms.SRTF;
 import Components.CurrentProcess;
 import Components.Job;
 import java.util.ArrayList;
@@ -43,7 +46,10 @@ public class CPU {
     
     public static void setAlgorithm(String algorithm){
         switch(algorithm){
-            case "FCFS": CPU.algorithm = new FCFS(jobList);
+            case "FCFS": CPU.algorithm = new FCFS(jobList); break;
+            case "SJF": CPU.algorithm = new SJF(jobList); break;
+            case "SRTF": CPU.algorithm = new SRTF(jobList); break;
+            case "RR": CPU.algorithm = new RR(jobList); break;
         }
     }
     

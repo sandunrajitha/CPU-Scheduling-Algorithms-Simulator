@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class FCFS extends Algorithm {
     
-    boolean startSet = false; //flag to set the start time of the each job
+    //boolean startSet = false; //flag to set the start time of the each job
 
     public FCFS(ArrayList<Job> jobList) {
         super(jobList);
@@ -34,17 +34,19 @@ public class FCFS extends Algorithm {
 //        System.out.println(" ");
         /**/
         
-        if (!tempQueue.isEmpty()) {
-            tempQueue.forEach(job -> {
-                if (job.arrivalTime == currentTime) {
-                    readyQueue.add(job.getCopy());
-                }
-                
-            });
-            readyQueue.forEach(job -> {
-                tempQueue.remove(job);
-            });
-        }
+//        if (!tempQueue.isEmpty()) {
+//            tempQueue.forEach(job -> {
+//                if (job.arrivalTime == currentTime) {
+//                    readyQueue.add(job.getCopy());
+//                }
+//                
+//            });
+//            readyQueue.forEach(job -> {
+//                tempQueue.remove(job);
+//            });
+//        }
+
+        addArrivedToTempQ(currentTime);
 
         /**/
         if(tempQueue.isEmpty() && readyQueue.isEmpty()){

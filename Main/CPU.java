@@ -22,7 +22,7 @@ public class CPU {
     
     private static Algorithm algorithm;
     //public static int currentTime;
-    public static int quantum = 2;
+    public static int quantum;
     public static ArrayList<Job> jobList;
 
 //    public CPU(int quantum, ArrayList<Job> jobList) {
@@ -42,6 +42,12 @@ public class CPU {
     public static void setQuantum(int quantum){
         CPU.quantum = quantum;
     }
+
+    public static int getQuantum() {
+        return quantum;
+    }
+    
+    
     
     
     public static void setAlgorithm(String algorithm){
@@ -52,7 +58,4 @@ public class CPU {
             case "RR": CPU.algorithm = new RR(jobList); break;
         }
     }
-    
-    
-    
 }

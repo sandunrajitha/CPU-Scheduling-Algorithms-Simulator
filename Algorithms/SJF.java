@@ -15,6 +15,8 @@ import java.util.ArrayList;
  */
 public class SJF extends Algorithm {
 
+    boolean newJob = true;
+
     public SJF(ArrayList<Job> jobList) {
         super(jobList);
     }
@@ -22,14 +24,14 @@ public class SJF extends Algorithm {
     @Override
     public CurrentProcess nextStep(int currentTime) {
         Job currentJob = null;
-        boolean newJob = true;
+        System.out.println("table data 1 "+currentProcess.tableData.toString());
 
         /**/
         addArrivedToTempQ(currentTime);
-        
-        if(newJob){
+
+        if (newJob) {
             sortByBurstTime(readyQueue);
-            System.out.println(readyQueue.toString());
+            //System.out.println(readyQueue.toString());
         }
 
         /**/
@@ -44,7 +46,7 @@ public class SJF extends Algorithm {
 
             currentJob = readyQueue.get(0);
             newJob = false;
-            
+
             if (!currentJob.isStarted()) {
                 currentJob.setStartTime(currentTime);
                 currentJob.setStarted(true);
@@ -54,6 +56,7 @@ public class SJF extends Algorithm {
             if (currentJob.remainingTime > 0) {
                 System.out.println(currentJob.getJobNo());
                 readyQueue.set(0, currentJob);
+                currentProcess.tableData.set(currentJob.getJobNo() - 1, currentJob);
 
             } else if (currentJob.remainingTime == 0) {
                 System.out.println("removed " + currentJob.getJobNo());
@@ -66,7 +69,8 @@ public class SJF extends Algorithm {
             }
 
             currentProcess.setCurrentJob(currentJob);
-            currentProcess.tableData.set(currentJob.getJobNo() - 1, currentJob);
+
+            System.out.println("table data last " +currentProcess.tableData.toString());
         }
         /**/
 

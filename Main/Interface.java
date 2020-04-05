@@ -28,6 +28,7 @@ public class Interface extends javax.swing.JFrame {
     int quantum = 2;
     int currentTime = 0;
     boolean algorithmSet = false;
+    boolean quantumSet = false;
 
     /**
      * Creates new form Interface
@@ -94,7 +95,7 @@ public class Interface extends javax.swing.JFrame {
         radioButtonSJF = new javax.swing.JRadioButton();
         radioButtonSRTF = new javax.swing.JRadioButton();
         spinnerQuantum = new javax.swing.JSpinner();
-        jLabel1 = new javax.swing.JLabel();
+        labelQuantum = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -296,9 +297,20 @@ public class Interface extends javax.swing.JFrame {
         radioButtonSRTF.setText("Shortest Remaining Time First");
 
         spinnerQuantum.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        spinnerQuantum.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spinnerQuantum.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinnerQuantumStateChanged(evt);
+            }
+        });
+        spinnerQuantum.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                spinnerQuantumPropertyChange(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 2, 14)); // NOI18N
-        jLabel1.setText("Quantum :");
+        labelQuantum.setFont(new java.awt.Font("Lucida Grande", 2, 14)); // NOI18N
+        labelQuantum.setText("Quantum :");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -314,7 +326,7 @@ public class Interface extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(radioButtonRR)
                 .addGap(26, 26, 26)
-                .addComponent(jLabel1)
+                .addComponent(labelQuantum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spinnerQuantum, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -328,7 +340,7 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(radioButtonFCFS)
                     .addComponent(radioButtonSJF)
                     .addComponent(radioButtonSRTF)
-                    .addComponent(jLabel1)
+                    .addComponent(labelQuantum)
                     .addComponent(spinnerQuantum, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -463,6 +475,15 @@ public class Interface extends javax.swing.JFrame {
         if (!algorithmSet) {
             CPU.setAlgorithm(selectedAlgorithm);
             algorithmSet = true;
+            quantum = (int) spinnerQuantum.getValue();
+            
+        }
+        
+        if (!quantumSet) {
+            quantum = (int) spinnerQuantum.getValue();
+            CPU.setQuantum(quantum);
+            System.out.println(quantum);
+            quantumSet = true;
         }
 
         CurrentProcess currentProcess = CPU.nextStep(currentTime);
@@ -493,6 +514,15 @@ public class Interface extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_radioButtonRRItemStateChanged
+
+    private void spinnerQuantumPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spinnerQuantumPropertyChange
+        
+    }//GEN-LAST:event_spinnerQuantumPropertyChange
+
+    private void spinnerQuantumStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerQuantumStateChanged
+        
+        quantum = (int) spinnerQuantum.getValue();
+    }//GEN-LAST:event_spinnerQuantumStateChanged
 
     /**
      * @param args the command line arguments
@@ -537,7 +567,6 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton buttonNextStep;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel ganttBackground;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -555,6 +584,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel labelAvgWaitingTime;
     private javax.swing.JLabel labelCurrentJob;
     private javax.swing.JLabel labelCurrentTime;
+    private javax.swing.JLabel labelQuantum;
     private javax.swing.JLabel labelThroughput;
     private javax.swing.JRadioButton radioButtonFCFS;
     private javax.swing.JRadioButton radioButtonRR;
@@ -577,6 +607,7 @@ public class Interface extends javax.swing.JFrame {
         radioButtonSRTF.setEnabled(false);
         radioButtonSJF.setEnabled(false);
         radioButtonRR.setEnabled(false);
+        labelQuantum.setEnabled(false);
     }
 
     private void enableButtons() {

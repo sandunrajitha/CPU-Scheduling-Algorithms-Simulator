@@ -102,7 +102,7 @@ public class AddData extends javax.swing.JFrame {
 
         arrive1.setEditable(false);
         arrive1.setText("0");
-        arrive1.setFocusable(false);
+        arrive1.setRequestFocusEnabled(false);
 
         arrive2.setText("0");
         arrive2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));

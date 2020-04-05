@@ -193,6 +193,6 @@ public class Job {
     @Override
     public String toString() {
         return "[ jobNo=" + jobNo + ", arrivalTime=" + arrivalTime + ", burstTime=" + burstTime + ", remainingTime =" + remainingTime +", startTime=" + startTime + ", "
-                + "waitTime=" + waitTime + ", finishedTime=" + finishedTime + ", finished=" + finished + ", turnAroundTime=" + turnAroundTime + "]";
+                + "waitTime=" + waitTime + ", finishedTime=" + finishedTime + ", finished=" + finished + ", turnAroundTime=" + turnAroundTime + "] \n";
     }
 }

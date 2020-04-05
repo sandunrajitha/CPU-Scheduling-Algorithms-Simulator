@@ -21,25 +21,28 @@ public abstract class Algorithm {
     ArrayList<Job> jobList, tempQueue, currentProcessData;
     ArrayList<Job> readyQueue = new ArrayList<Job>();
     Job currentJob;
-    int quantum = 2;
     CurrentProcess currentProcess = new CurrentProcess();
     
     public Algorithm(ArrayList<Job> jobList){
         
         currentProcess.setTableData(arrayListCopy(jobList));
-        this.jobList = sortByArrivalTime(jobList);
+        this.jobList = sortByArrivalTime(arrayListCopy(jobList));
         this.tempQueue = arrayListCopy(this.jobList);
-        this.currentProcessData = arrayListCopy(this.jobList);
+        //this.currentProcessData = arrayListCopy(jobList);
+        
         
     }
     
     public abstract CurrentProcess nextStep (int currentTime);
+
     
     public void addArrivedToTempQ(int currentTime){
         if (!tempQueue.isEmpty()) {
             tempQueue.forEach(job -> {
                 if (job.arrivalTime == currentTime) {
                     readyQueue.add(job.getCopy());
+                    System.out.println("current time "+ currentTime);
+                    System.out.println(job.getJobNo()+" arrived");
                 }
                 
             });

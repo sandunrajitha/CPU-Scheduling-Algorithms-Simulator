@@ -100,7 +100,6 @@ public class AddData extends javax.swing.JFrame {
 
         jLabel13.setText("Process 10");
 
-        arrive1.setEditable(false);
         arrive1.setText("0");
         arrive1.setRequestFocusEnabled(false);
 

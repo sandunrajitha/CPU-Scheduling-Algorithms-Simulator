@@ -16,6 +16,9 @@ import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +32,8 @@ public class Interface extends javax.swing.JFrame {
     int currentTime = 0;
     boolean algorithmSet = false;
     boolean quantumSet = false;
-
+    boolean allJobsDone = false;
+    ArrayList<Job> jobList = new ArrayList<Job>();
     /**
      * Creates new form Interface
      */
@@ -47,6 +51,7 @@ public class Interface extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         enableButtons();
         radioButtonGroupEnable();
+        this.jobList = jobList;
         setTableData(jobList);
         initGanttChart();
         setButtonListener();
@@ -120,6 +125,11 @@ public class Interface extends javax.swing.JFrame {
 
         buttonFinishSimulation.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         buttonFinishSimulation.setText("Finish Simulation >|");
+        buttonFinishSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFinishSimulationActionPerformed(evt);
+            }
+        });
 
         buttonNextStep.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         buttonNextStep.setText("Next Step >>");
@@ -466,7 +476,9 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAddDataActionPerformed
 
     private void buttonNewSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewSimulationActionPerformed
-        // TODO add your handling code here:
+        Interface face = new Interface(jobList);
+        face.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_buttonNewSimulationActionPerformed
 
 
@@ -524,6 +536,25 @@ public class Interface extends javax.swing.JFrame {
         quantum = (int) spinnerQuantum.getValue();
     }//GEN-LAST:event_spinnerQuantumStateChanged
 
+    private void buttonFinishSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFinishSimulationActionPerformed
+           
+        do {            
+            click();
+            //Thread.sleep(50);
+        } while (!allJobsDone);
+    
+            
+        //}
+            
+
+    }//GEN-LAST:event_buttonFinishSimulationActionPerformed
+
+    public void click(){
+        buttonNextStep.doClick();
+        
+//        ganttBackground.revalidate();
+//        ganttBackground.repaint();
+    }
     /**
      * @param args the command line arguments
      */
@@ -687,6 +718,8 @@ public class Interface extends javax.swing.JFrame {
         } else if (job.getJobNo() == 0) {
             labelCurrentJob.setText("finished");
             calculateAverages();
+            allJobsDone = true;
+            buttonNextStep.setEnabled(false);
         }
         labelCurrentTime.setText(currentTime + "");
     }

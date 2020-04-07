@@ -8,6 +8,8 @@ package Main;
 import Components.Cell;
 import Components.CurrentProcess;
 import Components.Job;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,8 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,6 +38,8 @@ public class Interface extends javax.swing.JFrame {
     boolean quantumSet = false;
     boolean allJobsDone = false;
     ArrayList<Job> jobList = new ArrayList<Job>();
+    Animator animator;
+
     /**
      * Creates new form Interface
      */
@@ -44,6 +50,7 @@ public class Interface extends javax.swing.JFrame {
         radioButtonGroupDisable();
         initGanttChart();
         boolean algorithmSet = false;
+        spinnerQuantum.setValue(quantum);
     }
 
     public Interface(ArrayList<Job> jobList) {
@@ -63,8 +70,8 @@ public class Interface extends javax.swing.JFrame {
     public void initGanttChart() {
         buttonGroupAlgorithm.setSelected(radioButtonFCFS.getModel(), true);
         ganttBackground.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 2));
-        ganttBackground.setPreferredSize(new Dimension(960, 420));
-        ganttBackground.setMaximumSize(new Dimension(960, 420));
+        ganttBackground.setPreferredSize(new Dimension(960, 347));
+        ganttBackground.setMaximumSize(new Dimension(960, 347));
     }
 
     /**
@@ -79,9 +86,9 @@ public class Interface extends javax.swing.JFrame {
         buttonGroupAlgorithm = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         buttonAddData = new javax.swing.JButton();
-        buttonFinishSimulation = new javax.swing.JButton();
+        buttonAnimate = new javax.swing.JButton();
         buttonNextStep = new javax.swing.JButton();
-        buttonNewSimulation = new javax.swing.JButton();
+        buttonReset = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         labelAvgWaitingTime = new javax.swing.JLabel();
@@ -110,7 +117,9 @@ public class Interface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CPU Scheduling Algorithms Simulator");
-        setMinimumSize(new java.awt.Dimension(972, 919));
+        setBounds(new java.awt.Rectangle(0, 0, 972, 860));
+        setMinimumSize(new java.awt.Dimension(972, 860));
+        setPreferredSize(new java.awt.Dimension(978, 860));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -123,11 +132,11 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        buttonFinishSimulation.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        buttonFinishSimulation.setText("Finish Simulation >|");
-        buttonFinishSimulation.addActionListener(new java.awt.event.ActionListener() {
+        buttonAnimate.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        buttonAnimate.setText("Animate >|");
+        buttonAnimate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonFinishSimulationActionPerformed(evt);
+                buttonAnimateActionPerformed(evt);
             }
         });
 
@@ -139,11 +148,11 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        buttonNewSimulation.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        buttonNewSimulation.setText("New Simulation");
-        buttonNewSimulation.addActionListener(new java.awt.event.ActionListener() {
+        buttonReset.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        buttonReset.setText("Reset");
+        buttonReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNewSimulationActionPerformed(evt);
+                buttonResetActionPerformed(evt);
             }
         });
 
@@ -154,12 +163,12 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(buttonNewSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonAddData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonNextStep, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonFinishSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonAnimate, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,8 +180,8 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(buttonNextStep, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonNewSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonFinishSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonAnimate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8))
         );
 
@@ -399,7 +408,7 @@ public class Interface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -407,9 +416,9 @@ public class Interface extends javax.swing.JFrame {
         ganttBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ganttBackground.setFocusable(false);
         ganttBackground.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        ganttBackground.setMaximumSize(new java.awt.Dimension(960, 420));
+        ganttBackground.setMaximumSize(new java.awt.Dimension(960, 347));
         ganttBackground.setName(""); // NOI18N
-        ganttBackground.setPreferredSize(new java.awt.Dimension(960, 420));
+        ganttBackground.setPreferredSize(new java.awt.Dimension(960, 347));
         ganttBackground.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout ganttBackgroundLayout = new javax.swing.GroupLayout(ganttBackground);
@@ -420,7 +429,7 @@ public class Interface extends javax.swing.JFrame {
         );
         ganttBackgroundLayout.setVerticalGroup(
             ganttBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
+            .addGap(0, 343, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -462,7 +471,7 @@ public class Interface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ganttBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ganttBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -475,11 +484,11 @@ public class Interface extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_buttonAddDataActionPerformed
 
-    private void buttonNewSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewSimulationActionPerformed
+    private void buttonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonResetActionPerformed
         Interface face = new Interface(jobList);
         face.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_buttonNewSimulationActionPerformed
+    }//GEN-LAST:event_buttonResetActionPerformed
 
 
     private void buttonNextStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextStepActionPerformed
@@ -488,9 +497,9 @@ public class Interface extends javax.swing.JFrame {
             CPU.setAlgorithm(selectedAlgorithm);
             algorithmSet = true;
             quantum = (int) spinnerQuantum.getValue();
-            
+
         }
-        
+
         if (!quantumSet) {
             quantum = (int) spinnerQuantum.getValue();
             CPU.setQuantum(quantum);
@@ -528,59 +537,56 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_radioButtonRRItemStateChanged
 
     private void spinnerQuantumPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spinnerQuantumPropertyChange
-        
+
     }//GEN-LAST:event_spinnerQuantumPropertyChange
 
     private void spinnerQuantumStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerQuantumStateChanged
-        
+
         quantum = (int) spinnerQuantum.getValue();
     }//GEN-LAST:event_spinnerQuantumStateChanged
 
-    private void buttonFinishSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFinishSimulationActionPerformed
-           
-        do {            
-            click();
-            //Thread.sleep(50);
-        } while (!allJobsDone);
-    
-            
-        //}
-            
+    private void buttonAnimateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAnimateActionPerformed
+        animator = new Animator(buttonNextStep);
+        animator.start();
+        buttonAddData.setEnabled(false);
+        buttonAnimate.setEnabled(false);
+    }//GEN-LAST:event_buttonAnimateActionPerformed
 
-    }//GEN-LAST:event_buttonFinishSimulationActionPerformed
-
-    public void click(){
-        buttonNextStep.doClick();
-        
-//        ganttBackground.revalidate();
-//        ganttBackground.repaint();
-    }
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+            * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                System.out.println(info.getName());
+//                if ("Flat Laf Dark".equals(info.getName())) {
+//
+//                    
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//</editor-fold>
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -592,10 +598,10 @@ public class Interface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddData;
-    private javax.swing.JButton buttonFinishSimulation;
+    private javax.swing.JButton buttonAnimate;
     private javax.swing.ButtonGroup buttonGroupAlgorithm;
-    private javax.swing.JButton buttonNewSimulation;
     private javax.swing.JButton buttonNextStep;
+    private javax.swing.JButton buttonReset;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel ganttBackground;
     private javax.swing.JLabel jLabel2;
@@ -642,14 +648,14 @@ public class Interface extends javax.swing.JFrame {
     }
 
     private void enableButtons() {
-        buttonFinishSimulation.setEnabled(true);
-        buttonNewSimulation.setEnabled(true);
+        buttonAnimate.setEnabled(true);
+        buttonReset.setEnabled(true);
         buttonNextStep.setEnabled(true);
     }
 
     private void disableButtons() {
-        buttonFinishSimulation.setEnabled(false);
-        buttonNewSimulation.setEnabled(false);
+        buttonAnimate.setEnabled(false);
+        buttonReset.setEnabled(false);
         buttonNextStep.setEnabled(false);
     }
 
@@ -674,11 +680,10 @@ public class Interface extends javax.swing.JFrame {
             rowData[5] = job.getRemainingTime();
             rowData[6] = job.getFinishedTime();
             rowData[7] = job.getTurnAroundTime();
-            
+
             tableModel.addRow(rowData);
         });
     }
-
 
     public void setRadioActionCommands() {
         radioButtonFCFS.setActionCommand("FCFS");
@@ -687,7 +692,6 @@ public class Interface extends javax.swing.JFrame {
         radioButtonRR.setActionCommand("RR");
     }
 
-    
     public void setButtonListener() {
         setRadioActionCommands();
         radioButtonFCFS.addItemListener(radioButtonListener);
@@ -703,7 +707,7 @@ public class Interface extends javax.swing.JFrame {
                 selectedAlgorithm = buttonGroupAlgorithm.getSelection().getActionCommand();
                 System.out.println(e);
                 CPU.setAlgorithm(selectedAlgorithm);
-                System.out.println(selectedAlgorithm);
+                //System.out.println(selectedAlgorithm);
             }
         }
 
@@ -719,16 +723,19 @@ public class Interface extends javax.swing.JFrame {
             labelCurrentJob.setText("finished");
             calculateAverages();
             allJobsDone = true;
+            animator.setAllJobsDone(true);
             buttonNextStep.setEnabled(false);
+            buttonAddData.setEnabled(true);
+            buttonReset.setEnabled(true);
         }
         labelCurrentTime.setText(currentTime + "");
     }
 
     private void calculateAverages() {
         DefaultTableModel tableModel = (DefaultTableModel) jobsTable.getModel();
-        
+
         DecimalFormat formatter = new DecimalFormat("##.###");
-        
+
         double totalWaitTime = 0;
         double totalTurnaroundTime = 0;
         double finishTime = 0;
@@ -752,7 +759,7 @@ public class Interface extends javax.swing.JFrame {
                 finishTime = (int) tableModel.getValueAt(i, 6);
             }
         }
-        
+
         System.out.println("finishTime " + finishTime);
         System.out.println(tableModel.getRowCount());
         labelThroughput.setText(formatter.format(finishTime / tableModel.getRowCount()));

@@ -318,7 +318,7 @@ public class AddData extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAddDataActionPerformed
 
     private void buttonRandomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRandomActionPerformed
-        /* 
+       
         arrive1.setText(0+"");
         arrive2.setText(randomArrive());
         arrive3.setText(randomArrive());
@@ -340,7 +340,8 @@ public class AddData extends javax.swing.JFrame {
         burst8.setText(randomBurst());
         burst9.setText(randomBurst());
         burst10.setText(randomBurst());
-        */
+       
+        /*
         arrive1.setText("0");
         arrive2.setText("0");
         arrive3.setText("1");
@@ -362,6 +363,7 @@ public class AddData extends javax.swing.JFrame {
         burst8.setText("0");
         burst9.setText("0");
         burst10.setText("0");
+        */
     }//GEN-LAST:event_buttonRandomActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed

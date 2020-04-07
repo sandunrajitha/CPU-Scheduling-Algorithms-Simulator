@@ -28,7 +28,7 @@ public class RR extends Algorithm {
         Job currentJob = null;
 
         addArrivedToTempQ(currentTime);
-        System.out.println("Q1 "+CPU.getQuantum());
+        //System.out.println("Q1 "+CPU.getQuantum());
         /**/
         if (tempQueue.isEmpty() && readyQueue.isEmpty()) {
             currentJob = new Job(0, 0, 0); //all jobs finished
@@ -58,30 +58,30 @@ public class RR extends Algorithm {
 
             if (currentJob.remainingTime > 0 && iterations < CPU.getQuantum()) {
                 
-                System.out.println("Q2 "+CPU.getQuantum());
+                //System.out.println("Q2 "+CPU.getQuantum());
                 //iterations++;
-                System.out.println(currentJob.getJobNo() + "added to begining");
-                System.out.println("iterations " + iterations);
+                //System.out.println(currentJob.getJobNo() + "added to begining");
+                //System.out.println("iterations " + iterations);
                 addArrivedToTempQ(currentTime);
                 readyQueue.add(0, currentJob);
             
             } else if (currentJob.remainingTime > 0 && iterations >= CPU.getQuantum()) {
-                System.out.println("Q3 "+CPU.getQuantum());
+                //System.out.println("Q3 "+CPU.getQuantum());
                 addArrivedToTempQ(currentTime+1);
                 readyQueue.add(currentJob);
                 iterations = 0;
-                System.out.println(currentJob.getJobNo() + "added to end");
-                System.out.println("iterations " + iterations);
-                //currentJob = readyQueue.get(0);
+                //System.out.println(currentJob.getJobNo() + "added to end");
+                //System.out.println("iterations " + iterations);
+                
 
             } else if (currentJob.remainingTime == 0) {
-                System.out.println("removed " + currentJob.getJobNo());
+                //System.out.println("removed " + currentJob.getJobNo());
                 readyQueue.remove(currentJob);
                 currentJob.setFinishedTime(currentTime + 1);
                 iterations = 0;
                 currentJob.setTurnAroundTime();
                 currentProcess.tableData.set(currentJob.getJobNo() - 1, currentJob);
-                //sortByArrivalTime(readyQueue);
+                
             }
 
             currentProcess.setCurrentJob(currentJob);

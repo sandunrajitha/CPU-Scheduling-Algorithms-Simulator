@@ -55,12 +55,12 @@ public class SRTF extends Algorithm {
             currentJob.setRemainingTime(currentJob.remainingTime - 1);
 
             if (currentJob.remainingTime > 0) {
-                System.out.println(currentJob.getJobNo());
+                //System.out.println(currentJob.getJobNo());
                 readyQueue.add(currentJob);
                 sortByremainingTime(readyQueue);
                 
             } else if (currentJob.remainingTime == 0) {
-                System.out.println("removed " + currentJob.getJobNo());
+                //System.out.println("removed " + currentJob.getJobNo());
                 readyQueue.remove(currentJob);
                 currentJob.setFinishedTime(currentTime + 1);
                 

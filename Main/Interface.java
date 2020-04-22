@@ -481,6 +481,10 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAddDataActionPerformed
 
     private void buttonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonResetActionPerformed
+        if(animator != null){
+                animator.setAllJobsDone(true);
+        }
+        
         Interface face = new Interface(jobList);
         face.setVisible(true);
         this.dispose();

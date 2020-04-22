@@ -17,6 +17,9 @@ public class Animator extends Thread {
 
     JButton btn;
     public boolean allJobsDone = false;
+    
+    public Animator() {
+    }
 
     public Animator(JButton btn) {
         this.btn = btn;

@@ -8,17 +8,13 @@ package Main;
 import Components.Cell;
 import Components.CurrentProcess;
 import Components.Job;
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -38,7 +34,7 @@ public class Interface extends javax.swing.JFrame {
     boolean quantumSet = false;
     boolean allJobsDone = false;
     ArrayList<Job> jobList = new ArrayList<Job>();
-    Animator animator;
+    Animator animator = null;
 
     /**
      * Creates new form Interface
@@ -723,7 +719,9 @@ public class Interface extends javax.swing.JFrame {
             labelCurrentJob.setText("finished");
             calculateAverages();
             allJobsDone = true;
-            animator.setAllJobsDone(true);
+            if(animator != null){
+                animator.setAllJobsDone(true);
+            }
             buttonNextStep.setEnabled(false);
             buttonAddData.setEnabled(true);
             buttonReset.setEnabled(true);
@@ -762,7 +760,7 @@ public class Interface extends javax.swing.JFrame {
 
         System.out.println("finishTime " + finishTime);
         System.out.println(tableModel.getRowCount());
-        labelThroughput.setText(formatter.format(finishTime / tableModel.getRowCount()));
+        labelThroughput.setText(formatter.format(tableModel.getRowCount() / finishTime));
     }
 
     private void removeTableData() {
